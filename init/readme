@@ -1,0 +1,10 @@
+Put here py files.
+Main program will call them on init.
+
+
+
+
+
+
+DEV notes :
+decorator @registerInitFct allow to save a function in the global INIT_OBJ (an object)

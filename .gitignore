@@ -1,0 +1,7 @@
+*.pyc
+*.log
+/.settings
+/dist
+/build
+/.idea
+/test
