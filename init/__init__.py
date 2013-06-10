@@ -1,21 +1,41 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-'''
-Created on 7 f�vr. 2013
+import types
+import os
+import glob
+from theglobals import *
 
-@author: i5
-'''
+class InitObj(object):
+	"""Conteneur de fonctions"""
+	def __init__(self):
+		super(InitObj, self).__init__()
+		self.allfct = []
 
-from initobject import InitObj
+	def addFct(self, fct):
+		assert isinstance(fct, types.FunctionType)
+		if fct in self.allfct:
+			return
+		setattr(self, fct.__name__, fct)
+		self.allfct.append(fct)
 
+	def __iadd__(self, fct):
+		self.addFct(fct)
+		return self
+	
+	def startInitScript(self):
+		if not os.path.exists('./init'):
+			return 0
+		# else
+		os.chdir('./init')
+		for f in glob.glob("*.py"):
+			if f.startswith("__"):
+				continue
+			execfile(f)
+		os.chdir('../')
+		
+		return 1
 
-# GLOBAL
-INIT_OBJ = InitObj()
-
-def registerInitFct(fct):
-	"""
-	Decorator.
-	Permet de sauvegarder la fonction dans l'init object.
-	"""
-	INIT_OBJ.addFct(fct)
-	return fct
+	def __call__(self):
+		"""Start all init script"""
+		self.startInitScript()
+		return self

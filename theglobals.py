@@ -5,22 +5,41 @@ import platform
 import urllib2
 import cookielib
 import logging
+import sys
+import os
 
-logging.basicConfig(filename='MaxiVote.log', format='''
+
+INSTALL_DIR = os.path.dirname(sys.argv[0])
+PLUGIN_DIR = os.path.join(INSTALL_DIR, 'plugin')
+LOG_DIR = os.path.join(INSTALL_DIR, 'log')
+if not os.path.isdir(LOG_DIR):
+	os.mkdir(LOG_DIR)
+
+logging.basicConfig(filename=os.path.join(LOG_DIR, 'MaxiVote.log'), format='''
 --------------------------
 %(name)s @ %(asctime)s %(levelname)s:%(message)s
 --------------------------
 ''', level=logging.DEBUG)
 
 from lib.configobj import ConfigObj
-
 CONFIG = ConfigObj("config.ini")
-
-from init import INIT_OBJ
+INIT_OBJ = None
+import init
+INIT_OBJ = init.InitObj()
+def registerInitFct(fct):
+	"""
+	Decorator.
+	Permet de sauvegarder la fonction dans l'init object.
+	"""
+	INIT_OBJ.addFct(fct)
+	return fct
 from event import EVENTS, eventOnFct
 from event import SetReturn as SetReturn_Exception
 from event import StopFire as StopFire_Exception
 from utils.run_async import run_async
+PLUGINLIST = None
+import plugin
+PLUGINLIST = plugin.PluginsList()
 
 COMPUTER_NAME = platform.node() or "unknow" #computer name (string). set to unknow if can't get it.
 LOGGING = logging.getLogger("root") #super logger obj. For internal use

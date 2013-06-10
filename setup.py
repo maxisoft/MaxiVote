@@ -33,11 +33,11 @@ class Target(object):
 
 data_files = [('', ['config.ini']) ]
 
-includes = ['importall', 'Crypto', 'requests', 'certifi']
+includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email","mercurial"]
 excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
             'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',
             'Tkconstants', 'Tkinter']
-packages = ['utils', 'Crypto', 'requests', 'certifi']
+packages = ['utils', 'Crypto', 'requests', 'certifi', "lxml", "mercurial"]
 dll_excludes = ['tcl84.dll']
 icon_resources = []
 bitmap_resources = []
@@ -82,7 +82,7 @@ setup(
     data_files = data_files,
 
     options = {"py2exe": {"compressed": 2, 
-                          "optimize": 2,
+                          "optimize": 1,
                           "includes": includes,
                           "excludes": excludes,
                           "packages": packages,

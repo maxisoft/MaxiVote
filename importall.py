@@ -25,3 +25,7 @@ import base64
 import cookielib
 import logging
 import json
+import lxml
+import pyquery
+import mercurial
+import email,email.parser
