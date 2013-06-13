@@ -9,6 +9,7 @@ from abc import ABCMeta, abstractmethod
 from threading import Thread
 from multiprocessing import Process
 from utils.utils import inheritors
+import utils
 
 
 class LoggerFix(object):
@@ -16,10 +17,11 @@ class LoggerFix(object):
 	Allow "pickling" object with logger property.
 	"""
 	_logger = None
-
-	def __init__(self, format="%(asctime)s %(filename)s, %(lineno)d, %(funcName)s: %(message)s"):
+	__loggername = None
+	def __init__(self, format="%(asctime)s %(filename)s, %(lineno)d, %(funcName)s: %(message)s", name=None):
 		self.__formatLogger = format
 		self._logger = self.CreateLogger()
+		self.__loggername = name
 
 	@property
 	def logger(self):
@@ -31,14 +33,14 @@ class LoggerFix(object):
 		del self._logger
 
 	def CreateLogger(self):
-		self._logger = logging.Logger(self.__class__.__name__)
+		self._logger = logging.Logger(self.__loggername or self.__class__.__name__)
 		try:
 			self.logger.handlers[0].stream.close()
 			self.logger.removeHandler(self.logger.handlers[0])
 		except:
 			pass
-		file_handler = logging.FileHandler(os.path.join(LOG_DIR, self.__class__.__name__+'.log'))
-		file_handler.setLevel(logging.DEBUG)
+		file_handler = logging.FileHandler(os.path.join(LOG_DIR, (self.__loggername or self.__class__.__name__)+'.log'))
+		file_handler.setLevel(CONFIG.get("logging", logging.DEBUG))
 		formatter = logging.Formatter(self.__formatLogger)
 		file_handler.setFormatter(formatter)
 		self.logger.addHandler(file_handler)
@@ -56,11 +58,11 @@ class Plugin(LoggerFix):
 	__metaclass__ = ABCMeta
 	pluginprior = 0
 
-	def __init__(self, name=None, prior=None):
+	def __init__(self, name=None, prior=0):
 		super(Plugin,self).__init__()
 		self._pluginname = name or self.__class__.__name__
 		if prior is not None:
-			self.pluginprior=prior
+			self.pluginprior = prior
 
 	@property
 	def pluginname(self):
@@ -73,9 +75,7 @@ class Plugin(LoggerFix):
 
 	@staticmethod
 	def isRunnable(pluginClasse):
-		if "__abstractmethods__" in pluginClasse.__dict__ and "run" in pluginClasse.__dict__["__abstractmethods__"]:
-			return False
-		return True
+		return not bool("__abstractmethods__" in pluginClasse.__dict__ and pluginClasse.__dict__["__abstractmethods__"])  # and "run" in pluginClasse.__dict__["__abstractmethods__"]:
 
 	@staticmethod
 	def AllRunnablePlugins():
@@ -92,8 +92,8 @@ class Plugin(LoggerFix):
 class PluginThread(Plugin, Thread):
 	__metaclass__ = ABCMeta
 
-	def __init__(self, name=None):
-		super(PluginThread, self).__init__(name=name)
+	def __init__(self, name=None, prior=0):
+		super(PluginThread, self).__init__(name=name, prior=prior)
 		Thread.__init__(self)
 		self.setName(name)
 
@@ -103,14 +103,17 @@ class PluginThread(Plugin, Thread):
 
 class RequieredPlugin(PluginThread):
 
-	pluginprior = sys.maxint
+	pluginprior = sys.maxint - 1
+	waitthread = True
 
-	def __init__(self, name=None, tiemoutjoin=100):
+	def __init__(self, name=None, tiemoutjoin=100, prior=sys.maxint):
 		self.tiemoutjoin = tiemoutjoin
-		super(RequieredPlugin, self).__init__(name)
+		super(RequieredPlugin, self).__init__(name=name, prior=prior)
 
 	def start(self):
 		ret = super(RequieredPlugin, self).start()
+		if not self.waitthread:
+			return ret
 		self.join(self.tiemoutjoin)  # wait
 		if self.is_alive():
 			try:
@@ -127,8 +130,8 @@ class RequieredPlugin(PluginThread):
 class PluginProcess(Plugin, Process):
 	__metaclass__ = ABCMeta
 
-	def __init__(self, name=None):
-		super(PluginProcess, self).__init__(name=name)
+	def __init__(self, name=None, prior=0):
+		super(PluginProcess, self).__init__(name=name, prior=prior)
 		Process.__init__(self)
 		self._name = name
 
@@ -145,7 +148,7 @@ class PluginsList:
 		if not os.path.isdir(self.dir):
 			os.mkdir(self.dir)
 		self.subdir = [name for name in os.listdir(self.dir) if os.path.isdir(os.path.join(self.dir, name))]
-		sys.path.append(self.dir) # => easy import
+		sys.path.append(self.dir)  # => easy import
 		self.logger = logging.getLogger("plugin loader")
 		
 	@eventOnFct("ALL_PLUGINS_STARTED")
@@ -170,11 +173,10 @@ class PluginsList:
 			"""
 			Sort plugin using prior attribute. decreasing.
 			"""
-			return -(r.pluginprior - l.pluginprior)
+			return (r.pluginprior - l.pluginprior)
 
 		self.pluginsclasses.sort(sort_fct)  # sort plugin
-		self.pluginsclasses = set(self.pluginsclasses)  # convert to a set
-		self.plugins = set([klass() for klass in self.pluginsclasses])  # instantiate every class
+		self.plugins = [klass() for klass in self.pluginsclasses]  # instantiate every class
 		print(self.plugins)
 		for plugin in self.plugins:
 			try:

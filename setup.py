@@ -33,12 +33,12 @@ class Target(object):
 
 data_files = [('', ['config.ini']) ]
 
-includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email","mercurial"]
+includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email","mercurial", "cv2", "numpy", "PyQt4", "PyQt4.QtGui", "PyQt4.QtCore", "sip"]
 excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
             'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',
             'Tkconstants', 'Tkinter']
-packages = ['utils', 'Crypto', 'requests', 'certifi', "lxml", "mercurial"]
-dll_excludes = ['tcl84.dll']
+packages = ['utils', 'Crypto', 'requests', 'certifi', "lxml", "mercurial", "PyQt4"]
+dll_excludes = ['tcl84.dll', 'python32.dll']
 icon_resources = []
 bitmap_resources = []
 other_resources = [(1, 24, 'cacert.pem')]
@@ -81,7 +81,7 @@ setup(
 
     data_files = data_files,
 
-    options = {"py2exe": {"compressed": 2, 
+    options = {"py2exe": {"compressed": 2,
                           "optimize": 1,
                           "includes": includes,
                           "excludes": excludes,
@@ -96,7 +96,7 @@ setup(
                          }
               },
 
-    zipfile = None,
+    #zipfile = None,
     console = [GUI2Exe_Target_1],
     windows = [],
     service = [],
