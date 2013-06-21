@@ -162,7 +162,7 @@ class PluginsList:
 			try:
 				__import__(plugin)
 			except ImportError, e:
-				self.logger.exception("import error with folder : %s (no __init__.py ?)", plugin)
+				self.logger.exception("import error with folder : %s", plugin)
 			except Exception, e:
 				self.logger.exception("can't import %s", plugin)
 		

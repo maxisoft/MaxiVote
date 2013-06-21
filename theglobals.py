@@ -8,12 +8,13 @@ import logging
 import sys
 import os
 
-
 INSTALL_DIR = os.path.dirname(sys.argv[0])
 PLUGIN_DIR = os.path.join(INSTALL_DIR, 'plugin')
 LOG_DIR = os.path.join(INSTALL_DIR, 'log')
+#folder creation
 if not os.path.isdir(LOG_DIR):
 	os.mkdir(LOG_DIR)
+KEY_PRIVATE_FILE = os.path.join(INSTALL_DIR, 'key.private')
 
 logging.basicConfig(filename=os.path.join(LOG_DIR, 'MaxiVote.log'), format='''
 --------------------------
@@ -54,3 +55,6 @@ HTTP_PROXY or HTTPS_PROXY) else None #proxy handler for urllib. set to None if n
 URL_OPENER = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookielib.CookieJar()), PROXY_SUPPORT) if PROXY_SUPPORT \
 	else urllib2.build_opener(
 	urllib2.HTTPCookieProcessor(cookielib.CookieJar())) #default URL opener (a urllib2 object). Use proxy if any .
+
+
+import utils.utils
