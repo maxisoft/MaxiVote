@@ -14,12 +14,17 @@ INSTALL_DIR = os.path.dirname(sys.argv[0])
 PLUGIN_DIR = os.path.join(INSTALL_DIR, 'plugin')
 LOG_DIR = os.path.join(INSTALL_DIR, 'log')
 INIT_DIR = os.path.join(INSTALL_DIR, 'init')
+IMPORTHOOK_DIR = INIT_DIR = os.path.join(INSTALL_DIR, 'importhook')
+
 #folder creation
 if not os.path.isdir(LOG_DIR):
 	os.mkdir(LOG_DIR)
 
 if not os.path.isdir(INIT_DIR):
 	os.mkdir(INIT_DIR)
+
+if not os.path.isdir(IMPORTHOOK_DIR):
+	os.mkdir(IMPORTHOOK_DIR)
 KEY_PRIVATE_FILE = os.path.join(INSTALL_DIR, 'key.private')
 
 logging.basicConfig(filename=os.path.join(LOG_DIR, 'MaxiVote.log'), format='''
