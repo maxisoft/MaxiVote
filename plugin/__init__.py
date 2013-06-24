@@ -20,8 +20,8 @@ class LoggerFix(object):
 	__loggername = None
 	def __init__(self, format="%(asctime)s %(filename)s, %(lineno)d, %(funcName)s: %(message)s", name=None):
 		self.__formatLogger = format
-		self._logger = self.CreateLogger()
 		self.__loggername = name
+		self._logger = self.CreateLogger()
 
 	@property
 	def logger(self):
@@ -35,7 +35,7 @@ class LoggerFix(object):
 	def CreateLogger(self):
 		self._logger = logging.Logger(self.__loggername or self.__class__.__name__)
 		try:
-			self.logger.handlers[0].stream.close()
+			#self.logger.handlers[0].stream.close()
 			self.logger.removeHandler(self.logger.handlers[0])
 		except:
 			pass

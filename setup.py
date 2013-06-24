@@ -33,7 +33,7 @@ class Target(object):
 
 data_files = [('', ['config.ini']) ]
 
-includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email","mercurial", "cv2", "numpy", "sip"]
+includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email", "mercurial", "cv2", "numpy", "sip"]
 excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
             'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',
             'Tkconstants', 'Tkinter']

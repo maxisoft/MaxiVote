@@ -8,6 +8,8 @@ import hashlib
 
 from Crypto.Cipher import AES
 
+from cachedecorator import cached
+
 
 def to_unicode(x):
 	"""Try to convert the input to utf-8."""
@@ -54,12 +56,15 @@ def inheritors(klass):
 def get_computer_hash_name():
 	return hashlib.sha224(socket.gethostname()).hexdigest()
 
+
+@cached
 def read_iv(file):
 	ret = None
 	with open(file, 'rb') as f:
 		ret = "".join(f.readline())
 	ret = hashlib.sha224(ret).hexdigest()[:16]
 	return ret
+
 
 def crypt(s, iv):
 	def encipher(S):

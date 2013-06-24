@@ -34,4 +34,5 @@ import tempfile
 from mercurial import *
 import storm
 import cherrypy
+import wx
 from Crypto.Cipher import AES
