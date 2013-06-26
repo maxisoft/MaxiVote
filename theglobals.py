@@ -55,7 +55,6 @@ PLUGINLIST = plugin.PluginsList()
 
 COMPUTER_NAME = platform.node() or "unknow" #computer name (string). set to unknow if can't get it.
 LOGGING = logging.getLogger("root") #super logger obj. For internal use
-
 HTTP_PROXY = unicode(
 	CONFIG['http_proxy']) if 'http_proxy' in CONFIG else None #proxy https string (like '127.0.0.1:8080')
 HTTPS_PROXY = HTTP_PROXY = unicode(

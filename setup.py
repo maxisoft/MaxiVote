@@ -31,17 +31,17 @@ class Target(object):
 # the setup call at the end of this file. So, I put all the big lists
 # here and I wrap them using the textwrap module.
 
-data_files = [('', ['config.ini']) ]
+data_files = [('', ['config.ini', 'MaxiVote.ico'])]
 
-includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email", "mercurial", "cv2", "numpy", "sip"]
+includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email", "mercurial", "cv2", "numpy", "sip", "win32gui_struct", "_winreg"]
 excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
             'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',
             'Tkconstants', 'Tkinter', 'importhook']
-packages = ['utils', 'Crypto', 'requests', 'certifi', "lxml", "mercurial", "storm"]
+packages = ['utils', 'Crypto', 'requests', 'certifi', "lxml", "mercurial", "storm" ]
 dll_excludes = ['tcl84.dll', 'python32.dll']
-icon_resources = []
+icon_resources = [(1, 'MaxiVote.ico')]
 bitmap_resources = []
-other_resources = [(1, 24, 'cacert.pem')]
+other_resources = []
 
 
 # This is a place where the user custom code may go. You can do almost
@@ -61,11 +61,9 @@ GUI2Exe_Target_1 = Target(
     icon_resources = icon_resources,
     bitmap_resources = bitmap_resources,
     other_resources = other_resources,
-    dest_base = "main",    
-    version = "0.1",
-    company_name = "No Company",
-    copyright = "No Copyrights",
-    name = "Py2Exe Sample File",
+    dest_base = "MaxiVote",
+    version = "1",
+    name = "MaxiVote - Bot Vote",
     
     )
 
@@ -97,8 +95,8 @@ setup(
               },
 
     #zipfile = None,
-    console = [GUI2Exe_Target_1],
-    windows = [],
+    console = [],
+    windows = [GUI2Exe_Target_1],
     service = [],
     com_server = [],
     ctypes_com_server = []

@@ -11,7 +11,6 @@ if __name__ == '__main__':
 	if not os.path.isfile(KEY_PRIVATE_FILE):
 		with open(KEY_PRIVATE_FILE, 'wb') as f:
 			f.write(Random.get_random_bytes(32 << 8))
-
 	sys.path.append(INSTALL_DIR)
 	import importhook
 	freeze_support()
@@ -19,4 +18,3 @@ if __name__ == '__main__':
 	EVENTS["init"] += PLUGINLIST
 
 	EVENTS["init"]()
-	pass
