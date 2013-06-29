@@ -64,7 +64,7 @@ GUI2Exe_Target_1 = Target(
 	bitmap_resources=bitmap_resources,
 	other_resources=other_resources,
 	dest_base="MaxiVote",
-	version="1",
+	version="2",
 	name="MaxiVote - Bot Vote",
 
 )
@@ -78,7 +78,8 @@ SERVICE = Target(
 	# what to build.  For a service, the module name (not the
 	# filename) must be specified!
 	modules=["MaxiVoteService"],
-	cmdline_style='pywin32'
+	cmdline_style='pywin32',
+	icon_resources=[(1, 'Service.ico')]
 )
 
 # No custom class for UPX compression or Inno Setup script

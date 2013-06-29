@@ -8,7 +8,7 @@ import logging
 import sys
 import os
 
-VERSION = int(1)
+VERSION = int(2)
 
 INSTALL_DIR = os.path.dirname(sys.argv[0]) or os.getcwd()
 PLUGIN_DIR = os.path.join(INSTALL_DIR, 'plugin')
