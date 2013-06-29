@@ -7,6 +7,7 @@ import os
 from Crypto import Random
 import sys
 if __name__ == '__main__':
+	os.chdir(INSTALL_DIR)
 	#key create
 	if not os.path.isfile(KEY_PRIVATE_FILE):
 		with open(KEY_PRIVATE_FILE, 'wb') as f:

@@ -10,7 +10,7 @@ import os
 
 VERSION = int(1)
 
-INSTALL_DIR = os.path.dirname(sys.argv[0])
+INSTALL_DIR = os.path.dirname(sys.argv[0]) or os.getcwd()
 PLUGIN_DIR = os.path.join(INSTALL_DIR, 'plugin')
 LOG_DIR = os.path.join(INSTALL_DIR, 'log')
 INIT_DIR = os.path.join(INSTALL_DIR, 'init')
