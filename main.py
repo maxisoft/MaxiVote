@@ -19,6 +19,9 @@ if __name__ == '__main__':
 	# check is another instance of same program running
 	if myapp.aleradyrunning():
 		print "Another instance of this program is already running"
+		import logging
+		l = logging.getLogger('Already Running')
+		l.warning("Another instance of this program is already running. Exiting")
 		os._exit(9)
 	#key create
 	if not os.path.isfile(KEY_PRIVATE_FILE):
