@@ -32,5 +32,4 @@ if __name__ == '__main__':
 	freeze_support()
 	EVENTS["init"] += INIT_OBJ
 	EVENTS["init"] += PLUGINLIST
-
 	EVENTS["init"]()

@@ -57,6 +57,7 @@ class LoggerFix(object):
 class Plugin(LoggerFix):
 	__metaclass__ = ABCMeta
 	pluginprior = 0
+	internalstorage = {"version": 1}
 
 	def __init__(self, name=None, prior=0):
 		super(Plugin,self).__init__()

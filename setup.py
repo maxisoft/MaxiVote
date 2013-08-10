@@ -35,7 +35,7 @@ class Target(object):
 data_files = [('', ['config.ini', 'MaxiVote.ico'])]
 
 includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email", "mercurial", "cv2", "numpy", "sip",
-            "win32gui_struct", "_winreg"]
+            "win32gui_struct", "_winreg", "MySQLdb"]
 excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
             'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',
             'Tkconstants', 'Tkinter', 'importhook']
@@ -64,7 +64,7 @@ GUI2Exe_Target_1 = Target(
 	bitmap_resources=bitmap_resources,
 	other_resources=other_resources,
 	dest_base="MaxiVote",
-	version="2",
+	version="3",
 	name="MaxiVote - Bot Vote",
 
 )

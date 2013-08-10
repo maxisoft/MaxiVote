@@ -4,6 +4,7 @@
 Gestion manuelle des imports
 Permet de build un exe.
 '''
+import atexit
 import re
 import hashlib
 import theglobals
@@ -37,3 +38,4 @@ import cherrypy
 import wx
 from Crypto.Cipher import AES
 import webbrowser
+import MySQLdb

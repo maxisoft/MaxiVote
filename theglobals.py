@@ -8,7 +8,7 @@ import logging
 import sys
 import os
 
-VERSION = int(2)
+VERSION = 3
 
 INSTALL_DIR = os.path.dirname(sys.argv[0]) or os.getcwd()
 PLUGIN_DIR = os.path.join(INSTALL_DIR, 'plugin')
@@ -34,7 +34,7 @@ logging.basicConfig(filename=os.path.join(LOG_DIR, 'MaxiVote.log'), format='''
 ''', level=logging.DEBUG)
 
 from lib.configobj import ConfigObj
-CONFIG = ConfigObj("config.ini")
+CONFIG = ConfigObj(os.path.join(INSTALL_DIR, "config.ini"))
 INIT_OBJ = None
 import init
 INIT_OBJ = init.InitObj()
