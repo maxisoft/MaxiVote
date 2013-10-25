@@ -13,7 +13,6 @@ from utils.singleinstance import singleinstance
 
 if __name__ == '__main__':
 	os.chdir(INSTALL_DIR)
-	# do this at beginnig of your application
 	myapp = singleinstance()
 
 	# check is another instance of same program running

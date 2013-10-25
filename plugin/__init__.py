@@ -11,6 +11,8 @@ from multiprocessing import Process
 from utils.utils import inheritors
 import utils
 
+from event import eventAfterCall, EVENTS
+
 
 class LoggerFix(object):
 	"""
@@ -54,13 +56,14 @@ class LoggerFix(object):
 	def __setstate__(self, d):
 		self.__dict__.update(d)
 
+
 class Plugin(LoggerFix):
 	__metaclass__ = ABCMeta
 	pluginprior = 0
 	internalstorage = {"version": 1}
 
 	def __init__(self, name=None, prior=0):
-		super(Plugin,self).__init__()
+		super(Plugin, self).__init__()
 		self._pluginname = name or self.__class__.__name__
 		if prior is not None:
 			self.pluginprior = prior
@@ -87,7 +90,6 @@ class Plugin(LoggerFix):
 
 	def __str__(self):
 		return '<Plugin : "%s">' % self.pluginname
-
 
 
 class PluginThread(Plugin, Thread):
@@ -152,7 +154,7 @@ class PluginsList:
 		sys.path.append(self.dir)  # => easy import
 		self.logger = logging.getLogger("plugin loader")
 		
-	@eventOnFct("ALL_PLUGINS_STARTED")
+	@eventAfterCall("ALL_PLUGINS_STARTED")
 	def start(self, *args):
 		# list all plugin
 		for plugin in self.subdir:
@@ -177,7 +179,7 @@ class PluginsList:
 			return (r.pluginprior - l.pluginprior)
 
 		self.pluginsclasses.sort(sort_fct)  # sort plugin
-		self.plugins = [klass() for klass in self.pluginsclasses]  # instantiate every class
+		self.plugins = [klass() for klass in self.pluginsclasses]
 		print(self.plugins)
 		for plugin in self.plugins:
 			try:

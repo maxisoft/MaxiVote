@@ -38,34 +38,23 @@ CONFIG = ConfigObj(os.path.join(INSTALL_DIR, "config.ini"))
 INIT_OBJ = None
 import init
 INIT_OBJ = init.InitObj()
-def registerInitFct(fct):
-	"""
-	Decorator.
-	Permet de sauvegarder la fonction dans l'init object.
-	"""
-	INIT_OBJ.addFct(fct)
-	return fct
-from event import EVENTS, eventOnFct
-from event import SetReturn as SetReturn_Exception
-from event import StopFire as StopFire_Exception
-from utils.run_async import run_async
 PLUGINLIST = None
 import plugin
 PLUGINLIST = plugin.PluginsList()
 
-COMPUTER_NAME = platform.node() or "unknow" #computer name (string). set to unknow if can't get it.
-LOGGING = logging.getLogger("root") #super logger obj. For internal use
-HTTP_PROXY = unicode(
-	CONFIG['http_proxy']) if 'http_proxy' in CONFIG else None #proxy https string (like '127.0.0.1:8080')
-HTTPS_PROXY = HTTP_PROXY = unicode(
-	CONFIG['https_proxy']) if 'https_proxy' in CONFIG else None #proxy https string (like '127.0.0.1:8080')
+COMPUTER_NAME = platform.node() or "unknow"  # computer name (string). set to unknow if can't get it.
+LOGGING = logging.getLogger("root")  # super logger obj. For internal use
+HTTP_PROXY = unicode(CONFIG.get('http_proxy'))  # proxy https string (like '127.0.0.1:8080')
+HTTPS_PROXY = HTTP_PROXY = unicode(CONFIG.get('https_proxy'))  # proxy https string (like '127.0.0.1:8080')
 
-PROXY_SUPPORT = urllib2.ProxyHandler({"http": HTTP_PROXY, "https": HTTPS_PROXY}) if (
-HTTP_PROXY or HTTPS_PROXY) else None #proxy handler for urllib. set to None if not using proxy
+PROXY_SUPPORT = urllib2.ProxyHandler({"http": HTTP_PROXY, "https": HTTPS_PROXY}) if (HTTP_PROXY or HTTPS_PROXY) else None
 
 URL_OPENER = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookielib.CookieJar()), PROXY_SUPPORT) if PROXY_SUPPORT \
 	else urllib2.build_opener(
-	urllib2.HTTPCookieProcessor(cookielib.CookieJar())) #default URL opener (a urllib2 object). Use proxy if any .
+	urllib2.HTTPCookieProcessor(cookielib.CookieJar()))  # default URL opener (a urllib2 object). Use proxy if any .
 
-
+from event import EVENTS, eventAfterCall
+from event import SetReturn as SetReturn_Exception
+from event import StopFire as StopFire_Exception
+from utils.run_async import run_async
 import utils.utils

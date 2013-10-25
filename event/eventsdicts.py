@@ -6,6 +6,7 @@ import copy
 
 from eventhook import EventHook
 
+__all__ = ["EventsDict"]
 
 
 def createDefaultEventHook():
@@ -26,16 +27,11 @@ class EventsDict(defaultdict):
 		self[key].name = str(key)
 		return ret
 
-
 	def preHook(self, key, fct):
 		"""
-		Allow to hook an existing event to do smthg before calling this last.
-		#TODO
+		Allow to hook an existing event to do smthg before.
 		"""
-		tmp = copy.copy(self[key]) #copy the event (to save __handlers list )
-		self[key].clearAll() #clear all __handlers in curr 
-		self[key] += fct # add new function
-		self[key] += tmp #because tmp is a copy and is callable it work :)
-		
-		
-		
+		tmp = copy.copy(self[key])  # copy the event (to save __handlers list )
+		self[key].clearAll()
+		self[key] += fct  # add new function
+		self[key] += tmp  #  remember that EventHook instances are callable :)

@@ -34,7 +34,7 @@ class Target(object):
 
 data_files = [('', ['config.ini', 'MaxiVote.ico'])]
 
-includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email", "mercurial", "cv2", "numpy", "sip",
+includes = ['importall', 'Crypto', 'requests', 'certifi', "lxml", "email", "mercurial",
             "win32gui_struct", "_winreg", "MySQLdb"]
 excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
             'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',

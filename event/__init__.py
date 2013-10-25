@@ -13,10 +13,10 @@ EVENTS = EventsDict()
 import functools
 
 
-def eventOnFct(s):
+def eventAfterCall(s):
 	"""
 	Decorator.
-	call Event when a function is called
+	call Event after a function call.
 	"""
 
 	assert (isinstance(s, str) and s != "")
@@ -31,4 +31,3 @@ def eventOnFct(s):
 		return wrapper
 
 	return mydecorator
-	

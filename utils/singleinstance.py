@@ -2,6 +2,8 @@ from win32event import CreateMutex
 from win32api import CloseHandle, GetLastError
 from winerror import ERROR_ALREADY_EXISTS
 
+__all__ = ["singleinstance"]
+
 class singleinstance:
     """ Limits application to single instance """
 

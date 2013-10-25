@@ -49,22 +49,3 @@ class MyTimer(Thread):
 		
 	def __call__(self):
 		return self.start()
-		
-
-if __name__ == '__main__':
-	#some test code here. 
-	def hello(name="bla"):
-		print "hello, ", name
-
-	myt = MyTimer(1.0, 5, hello,None, ["bob"])
-	myt()
-	
-	time.sleep(4)
-	myt.cancel()
-	del myt
-	print "next timer"
-	
-	myt = MyTimer(1.0, 0, hello, None,["bob"])
-	myt.start()
-	time.sleep(6)
-	myt.cancel()

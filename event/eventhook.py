@@ -13,17 +13,13 @@ class StopFire(Exception):
 
 
 class SetReturn(Exception):
-	""" raise this exception in order to set the return value at the end of an event fire (this set the return of EventHook.fire()) """
-
+	""" raise this exception in order to set the return value"""
 	def __init__(self, arg):
 		super(SetReturn, self).__init__()
 		self.arg = arg
 
 
 class EventHook(object):
-	"""
-	Base event
-	"""
 	def __init__(self, name="", delay=0):
 		self.__handlers = list()
 		self.name = str(name)
@@ -65,7 +61,7 @@ class EventHook(object):
 
 	def clearAll(self):
 		self.count = 0
-		del self.__handlers[:] #this not remove ref, only del content
+		del self.__handlers[:]  # del content
 
 	def __call__(self, *args, **keywargs):
 		return self.fire(*args, **keywargs)
