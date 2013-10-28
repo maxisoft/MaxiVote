@@ -46,3 +46,8 @@ Fonctionne a l'aide de plugins, dont la liste est disponible [ici](https://bitbu
 ## Configuration ##
 
 une fois installé , ce Bot se configure simplement a l'aide d'un navigateur a l'adresse locale suivante: [127.0.0.1:9645/](http://127.0.0.1:9645/)
+
+## Screenshot ##
+
+![Inteface](https://lh4.googleusercontent.com/-F6EIAv7Ygcc/Um6fnTGbT2I/AAAAAAAAAKU/xVyO0urHezk/w1135-h754-no/MaxiVoteWebUI.png)
+
