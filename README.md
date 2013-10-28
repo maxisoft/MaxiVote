@@ -36,7 +36,7 @@ Fonctionne a l'aide de plugins, dont la liste est disponible [ici](https://bitbu
     * `cd MaxiVote`
     * `chmod 755 linux_clean.sh`
     * `./linux_clean.sh`
-  + Et enfin lancé le bot :
+  + Et enfin lancer le bot :
   <br/>
     `python -O3 main.py`
 
