@@ -1,5 +1,7 @@
 MaxiVote
 ========
+![MaxiVote Logo](https://lh5.googleusercontent.com/-UCsFbB2UaFA/UcmeY77sbkI/AAAAAAAAAIo/h7nw8W8ZHWQ/s144/Vote.png)
+
 Base d'un bot de vote écrit en [python](http://www.python.org/).
 
 Fonctionne a l'aide de plugins, dont la liste est disponible [ici](https://bitbucket.org/maxivote-plugin).
