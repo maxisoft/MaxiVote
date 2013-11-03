@@ -7,6 +7,7 @@ Base d'un bot de vote écrit en [python](http://www.python.org/).
 Fonctionne a l'aide de plugins, dont la liste est disponible [ici](https://bitbucket.org/maxivote-plugin).
 
 ## Voici les sites supportés : ##
+	Ad Honores
 	Ad Vitam Aeternam
 	Earthquake
 	Millenium
@@ -17,7 +18,7 @@ Fonctionne a l'aide de plugins, dont la liste est disponible [ici](https://bitbu
 
 ## Installation Windows: ##
 
-  + [Télécharger](https://bitbucket.org/maxisoft/maxivote/downloads/V2.zip)
+  + [Télécharger](https://bitbucket.org/maxisoft/maxivote/downloads/v3.zip)
   + Extraire dans un dossier où installer (typiquement Mes documents)
   + Lancer `MaxiVote.exe`
 
